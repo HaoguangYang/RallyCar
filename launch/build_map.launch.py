@@ -36,14 +36,14 @@ def generate_launch_description():
     )
 
     print_usage_instructions = LogInfo(
-        msg="To start a keyboard teleop session, "
-        "keep this session running, open a new terminal, enter this workspace, "
-        "and run:\n"
+        msg="To start a keyboard teleop session, keep this session running, "
+        "open a new terminal, enter this workspace, and run:\n"
         "\tsource ./install/setup.bash\n"
         "\tros2 run rallycar rally_teleop_keyboard.py\n\n"
-        "To save the resultant map, keep this session running, open a new terminal "
-        "and run:\n"
-        "\tros2 run map_server map_saver_cli -f your_map_file_name\n"
+        "To save the resultant map, keep this session running, open a new "
+        "terminal and run:\n"
+        "\tros2 run nav2_map_server map_saver_cli -f your_map_file_name "
+        "--ros-args -p map_subscribe_transient_local:=true\n"
     )
 
     return LaunchDescription(

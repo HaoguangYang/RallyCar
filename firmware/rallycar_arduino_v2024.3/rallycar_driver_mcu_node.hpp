@@ -130,6 +130,8 @@ public:
     }
 
     void imu_init() {
+        // power-on settling time is 30 ms
+        delay(30);
         // Try to initialize IMU to highest sensitivity for calibration
         imu.initialize();
         while (!imu.testConnection()) {
@@ -140,9 +142,12 @@ public:
         imu.CoarseCalibrate(&gyroOffset[0], &accelOffset[0]);
         // this resets the MPU6050, therefore the previous coarse calibration
         // results need to be stored locally, and re-upload.
+        // imu.dmpInitialize() returns 0 when success
         while (imu.dmpInitialize()) {
             delay(50);
         }
+        // power-on settling time is 30 ms
+        delay(30);
         // re-upload calibration results
         imu.setXGyroOffset(gyroOffset[0]);
         imu.setYGyroOffset(gyroOffset[1]);

@@ -242,3 +242,6 @@ An illustration of the DC-DC boost converter board, and the button/LED to distin
       Power-cycle the entire upper deck to make changes take effect.
 
 If none of the above resolves your issue, please consult the instructors.
+
+## Known bugs
+1. Remote desktop on Jetson Orin Nano is still not stable when no monitor is plugged in. The RDP server refuses to reconnect once disconnected, unless a reboot is performed. Consider getting DP spoofers.

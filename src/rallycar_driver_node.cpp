@@ -39,13 +39,15 @@ public:
         std::string imu_frame = this->declare_parameter<std::string>("imu_frame_id", "imu_frame");
         imu.header.frame_id = imu_frame;
 
-        // MPU-6000 Has 0.05 deg/s RMS noise
-        double gyro_cov = std::pow(0.05 * M_PI / 180.0, 2.);
+        // MPU-6000 Has 0.05 deg/s RMS noise, plus 1 deg/s bias
+        double gyro_cov = std::pow(0.05 * M_PI / 180.0, 2.) +
+                            std::pow(M_PI / 180.0, 2.);
         imu.angular_velocity_covariance[0] = gyro_cov;
         imu.angular_velocity_covariance[4] = gyro_cov;
         imu.angular_velocity_covariance[8] = gyro_cov;
-        // MPU-6000 has 400ug/sqrt(Hz) power spectral density
-        double accel_cov = std::pow(400 * 1e-6 * 9.80665, 2) * 100.0;
+        // MPU-6000 has 400ug/sqrt(Hz) power spectral density, plus 80mg bias
+        double accel_cov = std::pow(400 * 1e-6 * 9.80665, 2) * 100.0 +
+                            std::pow(80 * 1.e-3 * 9.80665, 2);
         imu.linear_acceleration_covariance[0] = accel_cov;
         imu.linear_acceleration_covariance[4] = accel_cov;
         imu.linear_acceleration_covariance[8] = accel_cov;
